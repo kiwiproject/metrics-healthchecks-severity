@@ -73,6 +73,7 @@
         <lombok.version>1.18.12</lombok.version>
 
         <!-- Versions for optional dependencies -->
+        <jsr305.version>3.0.2</jsr305.version>
 
         <!-- Versions for test dependencies -->
         <assertj.version>3.16.1</assertj.version>
@@ -129,6 +130,18 @@
             <version>${kiwi.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-core</artifactId>
+            <version>${dropwizard.metrics.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-healthchecks</artifactId>
+            <version>${dropwizard.metrics.version}</version>
+        </dependency>
+
         <!-- provided dependencies -->
 
         <dependency>
@@ -140,7 +153,21 @@
 
         <!-- optional dependencies -->
 
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>${jsr305.version}</version>
+            <optional>true</optional>
+        </dependency>
+
         <!-- test dependencies -->
+
+        <dependency>
+            <groupId>org.kiwiproject</groupId>
+            <artifactId>kiwi-test</artifactId>
+            <version>${kiwi.test.version}</version>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.assertj</groupId>
