@@ -7,4 +7,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![Maven Central](https://img.shields.io/maven-central/v/org.kiwiproject/metrics-healthchecks-severity)
 
-TODO...brief description
+Metrics Healthchecks Severity is a tiny library that adds a "severity" detail
+to a health check result.
