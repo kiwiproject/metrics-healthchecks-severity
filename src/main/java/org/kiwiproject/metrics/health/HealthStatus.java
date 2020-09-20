@@ -6,6 +6,7 @@ import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toSet;
 import static org.kiwiproject.base.KiwiPreconditions.checkArgumentNotNull;
 import static org.kiwiproject.collect.KiwiMaps.isNullOrEmpty;
+import static org.kiwiproject.metrics.health.HealthCheckResults.SEVERITY_DETAIL;
 
 import com.google.common.collect.Iterables;
 import lombok.extern.slf4j.Slf4j;
@@ -60,8 +61,6 @@ public enum HealthStatus {
      * This should only be used when there are no service instances.
      */
     FATAL(5);
-
-    private static final String SEVERITY_DETAILS_KEY = "severity";
 
     /**
      * Internal value used to compare severity (we do NOT want to rely on the ordinal of the enum constants).
@@ -126,11 +125,11 @@ public enum HealthStatus {
     // the severity value is null or not a valid enum constant, so the stack trace provides no additional help
     @SuppressWarnings("java:S1166")
     private static HealthStatus getHealthStatusOrNull(Map<String, Object> map) {
-        if (!map.containsKey(SEVERITY_DETAILS_KEY)) {
+        if (!map.containsKey(SEVERITY_DETAIL)) {
             return null;
         }
 
-        Object severityObj = map.get(SEVERITY_DETAILS_KEY);
+        Object severityObj = map.get(SEVERITY_DETAIL);
         String severity = severityOrNull(severityObj);
 
         try {
