@@ -76,6 +76,8 @@ public enum HealthStatus {
      * returned by calling the {@code healthcheck} endpoint of an instance), determine the appropriate health status
      * by checking both the {@code healthy} flag (true or false) as well as the {@code severity} if present.
      *
+     * @param healthDetails the health check results as a map of maps
+     * @return the most appropriate {@link HealthStatus}
      * @implNote Expects a map of maps structured like: {@code string ->(string -> object)}. The map's keys
      * are the names of the individual checks (e.g. database, serverErrors, rottenTomato, etc.) while the values
      * are maps containing the health check result, which at a minimum should contain a boolean {@code healthy} and
@@ -209,6 +211,9 @@ public enum HealthStatus {
 
     /**
      * Return {@link #OK} if {@code value} is {@code true}; {@link #WARN} otherwise (including if {@code null}).
+     *
+     * @param value a (nullable) Boolean value
+     * @return {@link #OK} if {@code value} is {@code true}; {@link #WARN} otherwise
      */
     public static HealthStatus from(Boolean value) {
         return BooleanUtils.toBoolean(value) ? OK : WARN;
@@ -219,6 +224,7 @@ public enum HealthStatus {
      *
      * @param status1 the first status
      * @param status2 the second status
+     * @return the higher of the statuses
      * @throws IllegalArgumentException if either argument is null
      */
     public static HealthStatus max(HealthStatus status1, HealthStatus status2) {
@@ -231,6 +237,8 @@ public enum HealthStatus {
     /**
      * Return the highest severity in the (non-null, non-empty) collection of status values.
      *
+     * @param statuses a collection of {@link HealthStatus}
+     * @return the highest severity of the given status values
      * @throws IllegalArgumentException if the status list is null or empty
      */
     public static HealthStatus highestSeverity(Collection<HealthStatus> statuses) {
