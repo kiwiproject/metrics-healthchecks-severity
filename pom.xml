@@ -29,7 +29,7 @@
 
     <properties>
         <!-- Versions for required dependencies -->
-        <kiwi.version>0.10.0</kiwi.version>
+        <kiwi.version>0.11.0</kiwi.version>
 
         <!-- Versions for provided dependencies -->
         <dropwizard.version>2.0.12</dropwizard.version>
@@ -39,7 +39,7 @@
         <jsr305.version>3.0.2</jsr305.version>
 
         <!-- Versions for test dependencies -->
-        <kiwi.test.version>0.5.0</kiwi.test.version>
+        <kiwi.test.version>0.6.0</kiwi.test.version>
 
     </properties>
 
