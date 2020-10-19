@@ -29,7 +29,7 @@
 
     <properties>
         <!-- Versions for required dependencies -->
-        <kiwi.version>0.11.0</kiwi.version>
+        <kiwi.version>0.12.0</kiwi.version>
 
         <!-- Versions for provided dependencies -->
         <dropwizard.version>2.0.12</dropwizard.version>
@@ -96,6 +96,17 @@
             <artifactId>kiwi-test</artifactId>
             <version>${kiwi.test.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <!-- temporary -->
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.kiwiproject</groupId>
+                    <artifactId>kiwi</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
