@@ -29,7 +29,7 @@
 
     <properties>
         <!-- Versions for required dependencies -->
-        <kiwi.version>0.11.0</kiwi.version>
+        <kiwi.version>0.12.0</kiwi.version>
 
         <!-- Versions for provided dependencies -->
         <dropwizard.version>2.0.12</dropwizard.version>
