@@ -13,6 +13,7 @@ updates:
     allow:
       - dependency-name: "org.kiwiproject:*"
       - dependency-name: "io.dropwizard:*"
+      - dependency-name: "io.dropwizard.metrics:*"
       - dependency-name: "org.projectlombok:lombok"
       - dependency-name: "org.assertj:assertj-core"
       - dependency-name: "org.junit.jupiter:*"
