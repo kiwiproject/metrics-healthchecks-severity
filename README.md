@@ -1,6 +1,6 @@
 ### Metrics Healthchecks Severity
 
-[![Build Status](https://travis-ci.com/kiwiproject/metrics-healthchecks-severity.svg?branch=master)](https://travis-ci.com/kiwiproject/metrics-healthchecks-severity)
+[![Build](https://github.com/kiwiproject/metrics-healthchecks-severity/workflows/build/badge.svg)](https://github.com/kiwiproject/metrics-healthchecks-severity/actions?query=workflow%3Abuild)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kiwiproject_metrics-healthchecks-severity&metric=alert_status)](https://sonarcloud.io/dashboard?id=kiwiproject_metrics-healthchecks-severity)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=kiwiproject_metrics-healthchecks-severity&metric=coverage)](https://sonarcloud.io/dashboard?id=kiwiproject_metrics-healthchecks-severity)
 [![javadoc](https://javadoc.io/badge2/org.kiwiproject/metrics-healthchecks-severity/javadoc.svg)](https://javadoc.io/doc/org.kiwiproject/metrics-healthchecks-severity)
