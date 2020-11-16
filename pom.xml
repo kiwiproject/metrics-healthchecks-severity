@@ -28,7 +28,7 @@
 
     <properties>
         <!-- Versions for required dependencies -->
-        <kiwi.version>0.14.0</kiwi.version>
+        <kiwi.version>0.15.0</kiwi.version>
 
         <!-- Versions for provided dependencies -->
         <dropwizard.metrics.version>4.1.15</dropwizard.metrics.version>
@@ -37,7 +37,7 @@
         <jsr305.version>3.0.2</jsr305.version>
 
         <!-- Versions for test dependencies -->
-        <kiwi.test.version>0.9.0</kiwi.test.version>
+        <kiwi.test.version>0.10.0</kiwi.test.version>
 
         <!-- Sonar properties -->
         <sonar.projectKey>kiwiproject_metrics-healthchecks-severity</sonar.projectKey>
