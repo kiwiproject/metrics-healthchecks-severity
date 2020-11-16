@@ -31,7 +31,7 @@
         <kiwi.version>0.14.0</kiwi.version>
 
         <!-- Versions for provided dependencies -->
-        <dropwizard.metrics.version>4.1.14</dropwizard.metrics.version>
+        <dropwizard.metrics.version>4.1.15</dropwizard.metrics.version>
 
         <!-- Versions for optional dependencies -->
         <jsr305.version>3.0.2</jsr305.version>
