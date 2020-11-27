@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>metrics-healthchecks-severity</artifactId>
-    <version>v0.14.0-SNAPSHOT</version>
+    <version>0.14.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
