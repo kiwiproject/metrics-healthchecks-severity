@@ -90,7 +90,7 @@ public enum HealthStatus {
 
         var healthStatuses = healthDetails.values()
                 .stream()
-                .filter(value -> value instanceof Map)
+                .filter(Map.class::isInstance)
                 .map(Map.class::cast)
                 .map(HealthStatus::determineOverallStatus)
                 .collect(toSet());
