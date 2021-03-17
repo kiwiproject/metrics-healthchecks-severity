@@ -24,6 +24,14 @@ import java.util.Optional;
 /**
  * This enum is used to indicate the health status/severity for both a service (i.e. multiple running instances)
  * as well as the status of individual service instances.
+ * <p>
+ * If you need to compare {@link HealthStatus} instances by severity, use {@link HealthStatus#comparingSeverity()}
+ * to obtain a {@link Comparator}.
+ *
+ * @implNote Even though the natural order of the constants is defined from lowest to highest severity, we don't
+ * encourage relying on this and instead encourage using {@link HealthStatus#comparingSeverity()} to obtain a
+ * Comparator. For example, even though no changes are anticipated, it is possible a new constant could be added
+ * that falls between existing values, and could break existing assumptions.
  */
 @Slf4j
 public enum HealthStatus {
