@@ -9,12 +9,15 @@ import static org.kiwiproject.collect.KiwiMaps.isNullOrEmpty;
 import static org.kiwiproject.metrics.health.HealthCheckResults.SEVERITY_DETAIL;
 
 import com.google.common.collect.Iterables;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
 
@@ -65,6 +68,7 @@ public enum HealthStatus {
     /**
      * Internal value used to compare severity (we do NOT want to rely on the ordinal of the enum constants).
      */
+    @Getter(AccessLevel.PACKAGE)
     private final int value;
 
     HealthStatus(int value) {
@@ -234,6 +238,10 @@ public enum HealthStatus {
         return compare(status1, status2) > 0 ? status1 : status2;
     }
 
+    private static int compare(HealthStatus status1, HealthStatus status2) {
+        return comparingSeverity().compare(status1, status2);
+    }
+
     /**
      * Return the highest severity in the (non-null, non-empty) collection of status values.
      *
@@ -244,10 +252,15 @@ public enum HealthStatus {
     public static HealthStatus highestSeverity(Collection<HealthStatus> statuses) {
         checkArgument(nonNull(statuses) && !statuses.isEmpty(), "statuses cannot be empty or null");
 
-        return Collections.max(statuses, HealthStatus::compare);
+        return Collections.max(statuses, comparingSeverity());
     }
 
-    private static int compare(HealthStatus status1, HealthStatus status2) {
-        return Integer.compare(status1.value, status2.value);
+    /**
+     * Return a {@link Comparator} that compares {@link HealthStatus} objects from lowest to highest severity.
+     *
+     * @return a comparator that orders from lowest to highest severity
+     */
+    public static Comparator<HealthStatus> comparingSeverity() {
+        return HealthStatusComparator.INSTANCE;
     }
 }

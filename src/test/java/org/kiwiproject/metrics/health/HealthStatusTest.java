@@ -3,17 +3,24 @@ package org.kiwiproject.metrics.health;
 import static java.util.stream.Collectors.toUnmodifiableList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.util.Lists.newArrayList;
 
+import lombok.Builder;
+import lombok.Value;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.kiwiproject.base.KiwiStrings;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -394,5 +401,96 @@ class HealthStatusTest {
             assertThat(HealthStatus.max(status1, status2)).isEqualTo(expectedMax);
             assertThat(HealthStatus.max(status2, status1)).isEqualTo(expectedMax);
         }
+    }
+
+    @Nested
+    class HealthStatusComparators {
+
+        @ParameterizedTest(name = "[{index}] {0} ; expecting min={2}, max={3}")
+        @MethodSource("org.kiwiproject.metrics.health.HealthStatusTest#comparators")
+        void shouldCompareBySeverity(String description,
+                                     Comparator<HealthStatus> comparator,
+                                     HealthStatus expectedMin,
+                                     HealthStatus expectedMax) {
+
+            var values = newArrayList(HealthStatus.values());
+            Collections.shuffle(values);
+
+            var max = values.stream().max(comparator).orElseThrow();
+            var min = values.stream().min(comparator).orElseThrow();
+
+            assertThat(min)
+                    .describedAs("%s expected min=%s", description, expectedMin)
+                    .isEqualTo(expectedMin);
+
+            assertThat(max)
+                    .describedAs("%s expected max=%s", description, expectedMax)
+                    .isEqualTo(expectedMax);
+        }
+
+        @ParameterizedTest(name = "[{index}] statuses: {0} {1} {2} ; expected min={3}, max={4}")
+        @CsvSource({
+                "OK, OK, OK, OK, OK",
+                "INFO, INFO, INFO, INFO, INFO",
+                "WARN, WARN, WARN, WARN, WARN",
+                "CRITICAL, CRITICAL, CRITICAL, CRITICAL, CRITICAL",
+                "FATAL, FATAL, FATAL, FATAL, FATAL",
+                "OK, INFO, FATAL, OK, FATAL",
+                "OK, CRITICAL, WARN, OK, CRITICAL",
+                "OK, OK, CRITICAL, OK, CRITICAL",
+                "OK, WARN, OK, OK, WARN",
+                "FATAL, OK, OK, OK, FATAL",
+                "WARN, OK, OK, OK, WARN",
+                "WARN, INFO, INFO, INFO, WARN"
+        })
+        void shouldCompareHealthStatusInStreamPipelines(HealthStatus status1,
+                                                        HealthStatus status2,
+                                                        HealthStatus status3,
+                                                        HealthStatus expectedMin,
+                                                        HealthStatus expectedMax) {
+            var errors = newArrayList(
+                    new WorkflowError(status1 + " status", status1),
+                    new WorkflowError(status2 + " status", status2),
+                    new WorkflowError(status3 + " status", status3)
+            );
+            Collections.shuffle(errors);
+
+            var min = errors.stream()
+                    .map(WorkflowError::getHealthStatus)
+                    .min(HealthStatus.comparingSeverity())
+                    .orElseThrow();
+
+            assertThat(min).isEqualTo(expectedMin);
+
+            var max = errors.stream()
+                    .map(WorkflowError::getHealthStatus)
+                    .max(HealthStatus.comparingSeverity())
+                    .orElseThrow();
+
+            assertThat(max).isEqualTo(expectedMax);
+        }
+    }
+
+    static List<Arguments> comparators() {
+        return List.of(
+                Arguments.of("Comparator.naturalOrder()",
+                        Comparator.naturalOrder(), HealthStatus.OK, HealthStatus.FATAL),
+
+                Arguments.of("new HealthStatusComparator()",
+                        new HealthStatusComparator(), HealthStatus.OK, HealthStatus.FATAL),
+
+                Arguments.of("HealthStatus.comparingSeverity()",
+                        HealthStatus.comparingSeverity(), HealthStatus.OK, HealthStatus.FATAL),
+
+                Arguments.of("HealthStatus.comparingSeverity().reversed()",
+                        HealthStatus.comparingSeverity().reversed(), HealthStatus.FATAL, HealthStatus.OK)
+        );
+    }
+
+    @Value
+    @Builder
+    static class WorkflowError {
+        String message;
+        HealthStatus healthStatus;
     }
 }
