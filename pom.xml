@@ -102,4 +102,47 @@
 
     </dependencies>
 
+    <!-- TODO: When this is signed off on, move it to kiwi-parent -->
+    <profiles>
+        <profile>
+            <id>jdk11</id>
+            <activation>
+                <jdk>11</jdk>
+            </activation>
+            <!-- TODO: There are probably a ton of options to set here, take a look at DW's profiles to see what I'm talking about -->
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>${maven-compiler-plugin.version}</version>
+                        <configuration>
+                            <release>11</release>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>jdk16</id>
+            <activation>
+                <jdk>[16,)</jdk>
+            </activation>
+            <!-- TODO: There are probably a ton of options to set here, take a look at DW's profiles to see what I'm talking about -->
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>${maven-compiler-plugin.version}</version>
+                        <configuration>
+                            <release>11</release>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
