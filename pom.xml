@@ -29,7 +29,7 @@
     <properties>
         <!-- Versions for required dependencies -->
         <dropwizard.metrics.version>4.1.18</dropwizard.metrics.version>
-        <kiwi.version>0.21.0</kiwi.version>
+        <kiwi.version>0.22.0</kiwi.version>
 
         <!-- Versions for provided dependencies -->
 
