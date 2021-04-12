@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.kiwiproject</groupId>
         <artifactId>kiwi-parent</artifactId>
-        <version>0.10.0</version>
+        <version>0.11.0</version>
     </parent>
 
     <artifactId>metrics-healthchecks-severity</artifactId>
@@ -28,8 +28,8 @@
 
     <properties>
         <!-- Versions for required dependencies -->
-        <dropwizard.metrics.version>4.1.18</dropwizard.metrics.version>
-        <kiwi.version>0.21.0</kiwi.version>
+        <dropwizard.metrics.version>4.1.19</dropwizard.metrics.version>
+        <kiwi.version>0.22.0</kiwi.version>
 
         <!-- Versions for provided dependencies -->
 
@@ -37,7 +37,7 @@
         <jsr305.version>3.0.2</jsr305.version>
 
         <!-- Versions for test dependencies -->
-        <kiwi.test.version>0.17.0</kiwi.test.version>
+        <kiwi.test.version>0.18.0</kiwi.test.version>
 
         <!-- Sonar properties -->
         <sonar.projectKey>kiwiproject_metrics-healthchecks-severity</sonar.projectKey>
