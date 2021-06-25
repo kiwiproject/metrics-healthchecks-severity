@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.kiwiproject</groupId>
         <artifactId>kiwi-parent</artifactId>
-        <version>0.13.0</version>
+        <version>0.14.0</version>
     </parent>
 
     <artifactId>metrics-healthchecks-severity</artifactId>
@@ -28,7 +28,7 @@
 
     <properties>
         <!-- Versions for required dependencies -->
-        <dropwizard.metrics.version>4.1.22</dropwizard.metrics.version>
+        <dropwizard.metrics.version>4.1.23</dropwizard.metrics.version>
         <kiwi.version>0.24.0</kiwi.version>
 
         <!-- Versions for provided dependencies -->
@@ -37,7 +37,7 @@
         <jsr305.version>3.0.2</jsr305.version>
 
         <!-- Versions for test dependencies -->
-        <kiwi.test.version>0.19.0</kiwi.test.version>
+        <kiwi.test.version>0.20.0</kiwi.test.version>
 
         <!-- Sonar properties -->
         <sonar.projectKey>kiwiproject_metrics-healthchecks-severity</sonar.projectKey>
@@ -65,12 +65,24 @@
             <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-core</artifactId>
             <version>${dropwizard.metrics.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-healthchecks</artifactId>
             <version>${dropwizard.metrics.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- provided dependencies -->
