@@ -28,22 +28,28 @@
 
     <properties>
         <!-- Versions for required dependencies -->
-        <dropwizard.metrics.version>4.1.25</dropwizard.metrics.version>
-        <kiwi.version>1.1.0</kiwi.version>
-
-        <!-- Versions for provided dependencies -->
-
-        <!-- Versions for optional dependencies -->
-        <jsr305.version>3.0.2</jsr305.version>
+        <kiwi.version>1.1.1-SNAPSHOT</kiwi.version>
 
         <!-- Versions for test dependencies -->
-        <kiwi.test.version>1.1.1</kiwi.test.version>
+        <kiwi.test.version>1.1.2-SNAPSHOT</kiwi.test.version>
 
         <!-- Sonar properties -->
         <sonar.projectKey>kiwiproject_metrics-healthchecks-severity</sonar.projectKey>
         <sonar.organization>kiwiproject</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.kiwiproject</groupId>
+                <artifactId>kiwi-bom</artifactId>
+                <version>0.1.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 
@@ -56,6 +62,11 @@
         <!-- required dependencies -->
 
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.kiwiproject</groupId>
             <artifactId>kiwi</artifactId>
             <version>${kiwi.version}</version>
@@ -63,44 +74,7 @@
 
         <dependency>
             <groupId>io.dropwizard.metrics</groupId>
-            <artifactId>metrics-core</artifactId>
-            <version>${dropwizard.metrics.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-healthchecks</artifactId>
-            <version>${dropwizard.metrics.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- provided dependencies -->
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- optional dependencies -->
-
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>${jsr305.version}</version>
-            <optional>true</optional>
         </dependency>
 
         <!-- test dependencies -->
