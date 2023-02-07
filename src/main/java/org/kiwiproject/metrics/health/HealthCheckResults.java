@@ -219,7 +219,7 @@ public class HealthCheckResults {
      * @param messageTemplate the message template
      * @param args            the message arguments
      * @return an unhealthy result
-     * @implNote Uses f@link HealthCheck.ResultBuilder#withMessage(String, Object...)) under the covers, so uses its
+     * @implNote Uses {@link HealthCheck.ResultBuilder#withMessage(String, Object...)} under the covers, so uses its
      * message formatting
      * @see HealthCheck.ResultBuilder#withMessage(String)
      */
@@ -237,7 +237,7 @@ public class HealthCheckResults {
      * @param messageTemplate the message template
      * @param args            the message arguments
      * @return an unhealthy result
-     * @implNote Uses f@link HealthCheck.ResultBuilder#withMessage(String,Object...)} under the covers, so uses its
+     * @implNote Uses {@link HealthCheck.ResultBuilder#withMessage(String,Object...)} under the covers, so uses its
      * message formatting
      * @see HealthCheck.ResultBuilder#withMessage(String)
      */
