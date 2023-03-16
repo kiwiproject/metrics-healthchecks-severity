@@ -6,7 +6,7 @@
 [![CodeQL](https://github.com/kiwiproject/metrics-healthchecks-severity/actions/workflows/codeql.yml/badge.svg)](https://github.com/kiwiproject/metrics-healthchecks-severity/actions/workflows/codeql.yml)
 [![javadoc](https://javadoc.io/badge2/org.kiwiproject/metrics-healthchecks-severity/javadoc.svg)](https://javadoc.io/doc/org.kiwiproject/metrics-healthchecks-severity)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Maven Central](https://img.shields.io/maven-central/v/org.kiwiproject/metrics-healthchecks-severity)](https://search.maven.org/search?q=g:org.kiwiproject%20a:metrics-healthchecks-severity)
+[![Maven Central](https://img.shields.io/maven-central/v/org.kiwiproject/metrics-healthchecks-severity)](https://central.sonatype.com/artifact/org.kiwiproject/metrics-healthchecks-severity/1.0.11)
 
 Metrics Healthchecks Severity is a tiny library that adds a "severity" detail
 to a health check result.
