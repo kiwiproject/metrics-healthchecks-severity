@@ -49,6 +49,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.kiwiproject</groupId>
+                <artifactId>kiwi</artifactId>
+                <version>${kiwi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.kiwiproject</groupId>
+                <artifactId>kiwi-test</artifactId>
+                <version>${kiwi-test.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -64,7 +76,6 @@
         <dependency>
             <groupId>org.kiwiproject</groupId>
             <artifactId>kiwi</artifactId>
-            <version>${kiwi.version}</version>
         </dependency>
 
         <dependency>
@@ -82,7 +93,6 @@
         <dependency>
             <groupId>org.kiwiproject</groupId>
             <artifactId>kiwi-test</artifactId>
-            <version>${kiwi.test.version}</version>
             <scope>test</scope>
         </dependency>
         
