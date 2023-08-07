@@ -157,8 +157,8 @@ public enum HealthStatus {
     }
 
     private static String severityOrNull(Object severityObj) {
-        if (severityObj instanceof String) {
-            return (String) severityObj;
+        if (severityObj instanceof String severity) {
+            return severity;
         }
 
         LOG.warn("Something gave us a severity that was not a String: {}", severityObj);
