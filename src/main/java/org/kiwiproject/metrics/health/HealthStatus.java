@@ -23,7 +23,7 @@ import java.util.Optional;
 
 /**
  * This enum is used to indicate the health status/severity for both a service (i.e. multiple running instances)
- * as well as the status of individual service instances.
+ * and the status of individual service instances.
  * <p>
  * If you need to compare {@link HealthStatus} instances by severity, use {@link HealthStatus#comparingSeverity()}
  * to obtain a {@link Comparator}.
@@ -236,7 +236,7 @@ public enum HealthStatus {
      *
      * @param status1 the first status
      * @param status2 the second status
-     * @return the higher of the statuses
+     * @return the highest of the statuses
      * @throws IllegalArgumentException if either argument is null
      */
     public static HealthStatus max(HealthStatus status1, HealthStatus status2) {

@@ -1,12 +1,9 @@
 package org.kiwiproject.metrics.health;
 
-import static java.util.stream.Collectors.toUnmodifiableList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.util.Lists.newArrayList;
 
-import lombok.Builder;
-import lombok.Value;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -364,7 +361,7 @@ class HealthStatusTest {
             var statuses = Arrays.stream(statusCsv.split(","))
                     .map(String::trim)
                     .map(HealthStatus::valueOf)
-                    .collect(toUnmodifiableList());
+                    .toList();
 
             assertThat(HealthStatus.highestSeverity(statuses)).isEqualTo(expectedHighest);
         }
@@ -456,14 +453,14 @@ class HealthStatusTest {
             Collections.shuffle(errors);
 
             var min = errors.stream()
-                    .map(WorkflowError::getHealthStatus)
+                    .map(WorkflowError::healthStatus)
                     .min(HealthStatus.comparingSeverity())
                     .orElseThrow();
 
             assertThat(min).isEqualTo(expectedMin);
 
             var max = errors.stream()
-                    .map(WorkflowError::getHealthStatus)
+                    .map(WorkflowError::healthStatus)
                     .max(HealthStatus.comparingSeverity())
                     .orElseThrow();
 
@@ -487,10 +484,6 @@ class HealthStatusTest {
         );
     }
 
-    @Value
-    @Builder
-    static class WorkflowError {
-        String message;
-        HealthStatus healthStatus;
+    record WorkflowError(String message, HealthStatus healthStatus) {
     }
 }
