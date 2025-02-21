@@ -161,7 +161,11 @@ public enum HealthStatus {
             return severity;
         }
 
-        LOG.warn("Something gave us a severity that was not a String: {}", severityObj);
+        if (severityObj instanceof HealthStatus severity) {
+            return severity.name();
+        }
+
+        LOG.warn("Something gave us a severity that was not a String or HealthStatus: {}", severityObj);
         return null;
     }
 
