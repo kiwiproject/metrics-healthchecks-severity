@@ -146,10 +146,11 @@ class HealthStatusTest {
             assertThat(HealthStatus.from(healthDetails)).isEqualTo(HealthStatus.WARN);
         }
 
-        @Test
-        void shouldBe_WARN_WhenGiven_MapWithNullSeverity() {
+        @ParameterizedTest
+        @ValueSource(booleans = {true, false})
+        void shouldBe_WARN_WhenGiven_MapWithHealthyOrUnhealthyAnd_NullSeverity(boolean isHealthy) {
             Map<String, Object> healthDetails = Map.of(
-                    "database", KiwiMaps.newHashMap("healthy", false, "severity", null)
+                    "database", KiwiMaps.newHashMap("healthy", isHealthy, "severity", null)
             );
 
             assertThat(HealthStatus.from(healthDetails)).isEqualTo(HealthStatus.WARN);
