@@ -15,6 +15,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.kiwiproject.base.KiwiStrings;
+import org.kiwiproject.collect.KiwiMaps;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -140,6 +141,15 @@ class HealthStatusTest {
                             "healthy", false,
                             "severity", Map.of("level", "WARN")
                     )
+            );
+
+            assertThat(HealthStatus.from(healthDetails)).isEqualTo(HealthStatus.WARN);
+        }
+
+        @Test
+        void shouldBe_WARN_WhenGiven_MapWithNullSeverity() {
+            Map<String, Object> healthDetails = Map.of(
+                    "database", KiwiMaps.newHashMap("healthy", false, "severity", null)
             );
 
             assertThat(HealthStatus.from(healthDetails)).isEqualTo(HealthStatus.WARN);
