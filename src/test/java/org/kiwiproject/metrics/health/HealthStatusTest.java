@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -57,6 +58,21 @@ class HealthStatusTest {
                 );
 
                 assertThat(HealthStatus.from(healthDetails)).isEqualTo(HealthStatus.WARN);
+            }
+
+            @ParameterizedTest
+            @EnumSource(HealthStatus.class)
+            void shouldAcceptHealthSeverityObject(HealthStatus status) {
+                var healthy = switch (status) {
+                    case OK, INFO -> true;
+                    case WARN, CRITICAL, FATAL -> false;
+                };
+
+                Map<String, Object> healthDetails = Map.of(
+                        "database", Map.of("healthy", healthy, "severity", status)
+                );
+
+                assertThat(HealthStatus.from(healthDetails)).isEqualTo(status);
             }
         }
     }
