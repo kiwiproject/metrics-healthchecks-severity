@@ -10,7 +10,7 @@ import lombok.experimental.UtilityClass;
 /**
  * Utilities to create {@link HealthCheck.Result} or {@link HealthCheck.ResultBuilder} instances with a
  * {@link HealthStatus} to indicate the severity. Methods that do not have a severity argument will provide
- * a default severity.
+ * a default value.
  *
  * @apiNote All methods throw IllegalArgumentException if given null arguments or invalid combination
  * of (healthy, severity).
@@ -350,7 +350,8 @@ public class HealthCheckResults {
      * @param message the message
      * @return a new result builder
      * @implNote HealthCheck.Result.unhealthy(Throwable) sets the message to the exception's message. This overrides
-     * with the given message, and call order matters such that withMessage must be called after unhealthy(error)
+     * with the given message, and call order matters such that {@code withMessage} must be called after
+     * {@code unhealthy(error)}
      */
     public static HealthCheck.ResultBuilder newUnhealthyResultBuilder(Throwable error, String message) {
         checkError(error);
@@ -383,7 +384,8 @@ public class HealthCheckResults {
      * @param message  the message
      * @return a new result builder
      * @implNote HealthCheck.Result.unhealthy(Throwable) sets the message to the exception's message. This overrides
-     * with the given message, and call order matters such that withMessage must be called after unhealthy(error)
+     * with the given message, and call order matters such that {@code withMessage} must be called after
+     * {@code unhealthy(error)}
      */
     public static HealthCheck.ResultBuilder newUnhealthyResultBuilder(HealthStatus severity,
                                                                       Throwable error,
