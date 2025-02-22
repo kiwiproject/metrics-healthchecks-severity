@@ -1,8 +1,10 @@
 package org.kiwiproject.metrics.health;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.util.Lists.newArrayList;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -16,16 +18,85 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.kiwiproject.base.KiwiStrings;
 import org.kiwiproject.collect.KiwiMaps;
+import org.kiwiproject.test.junit.jupiter.params.provider.MinimalBlankStringSource;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
 @DisplayName("HealthStatus")
 class HealthStatusTest {
+
+    @Nested
+    class FromBoolean {
+
+        @Test
+        void shouldReturnOK_ForTrue() {
+            assertAll(
+                    () -> assertThat(HealthStatus.from(true)).isEqualTo(HealthStatus.OK),
+                    () -> assertThat(HealthStatus.from(Boolean.TRUE)).isEqualTo(HealthStatus.OK)
+            );
+        }
+
+        @Test
+        void shouldReturnWARN_ForFalseOrNull() {
+            assertAll(
+                    () -> assertThat(HealthStatus.from((Boolean) null)).isEqualTo(HealthStatus.WARN),
+                    () -> assertThat(HealthStatus.from(false)).isEqualTo(HealthStatus.WARN),
+                    () -> assertThat(HealthStatus.from(Boolean.FALSE)).isEqualTo(HealthStatus.WARN)
+            );
+        }
+    }
+
+    @Nested
+    class ValueOfIgnoreCase {
+
+        @ParameterizedTest
+        @MinimalBlankStringSource
+        void shouldRequireNonBlankValue(String value) {
+            assertThatIllegalArgumentException()
+                    .isThrownBy(() -> HealthStatus.valueOfIgnoreCase(value))
+                    .withMessage("value must not be blank");
+        }
+
+        @ParameterizedTest
+        @ValueSource(strings = { "foo", "okay", "war", "critic", "error" })
+        void shouldThrowIllegalArgument_WhenGivenNonMatchingString(String value) {
+            assertThatIllegalArgumentException()
+                    .isThrownBy(() -> HealthStatus.valueOfIgnoreCase(value))
+                    .withMessage("No HealthStatus value " + value.toUpperCase(Locale.ENGLISH));
+        }
+
+        @ParameterizedTest
+        @CsvSource(textBlock = """
+                OK, OK
+                ok, OK
+                Ok, OK
+                INFO, INFO
+                info, INFO
+                Info, INFO
+                InFo, INFO
+                WARN, WARN
+                warn, WARN
+                Warn, WARN
+                WaRn, WARN
+                CRITICAL, CRITICAL
+                critical, CRITICAL
+                Critical, CRITICAL
+                CrItIcAl, CRITICAL
+                FATAL, FATAL
+                fatal, FATAL
+                Fatal, FATAL
+                FaTaL, FATAL
+                """)
+        void shouldConvertStringsIgnoringCase(String value, HealthStatus expectedHealthStatus) {
+            assertThat(HealthStatus.valueOfIgnoreCase(value)).isEqualTo(expectedHealthStatus);
+        }
+    }
 
     @Nested
     class HealthStatusFrom {

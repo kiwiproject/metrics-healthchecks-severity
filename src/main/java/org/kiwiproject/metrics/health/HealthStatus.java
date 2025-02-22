@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toSet;
+import static org.kiwiproject.base.KiwiPreconditions.checkArgumentNotBlank;
 import static org.kiwiproject.base.KiwiPreconditions.checkArgumentNotNull;
 import static org.kiwiproject.collect.KiwiMaps.isNullOrEmpty;
 import static org.kiwiproject.metrics.health.HealthCheckResults.SEVERITY_DETAIL;
@@ -14,10 +15,12 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.kiwiproject.base.KiwiEnums;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -233,6 +236,23 @@ public enum HealthStatus {
      */
     public static HealthStatus from(Boolean value) {
         return BooleanUtils.toBoolean(value) ? OK : WARN;
+    }
+
+    /**
+     * Returns the {@code HealthStatus} that matches the input value. The value
+     * must match one of the enum constants, ignoring case. For example, the following
+     * values all match {@link HealthStatus#WARN}: {@code "WARN"}, {@code "warn"},
+     * {@code "Warn"}, and {@code "WaRn"}.
+     *
+     * @param value the value to find
+     * @return the equivalent {@code HealthStatus}
+     * @throws IllegalArgumentException if the value is blank, or the capitalized value
+     *                                  does not match ony of the HealthStatus enum constants
+     */
+    public static HealthStatus valueOfIgnoreCase(String value) {
+        checkArgumentNotBlank(value, "value must not be blank");
+        return KiwiEnums.getIfPresentIgnoreCase(HealthStatus.class, value)
+                .orElseThrow(() -> new IllegalArgumentException("No HealthStatus value " + value.toUpperCase(Locale.ENGLISH)));
     }
 
     /**
