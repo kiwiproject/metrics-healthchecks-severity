@@ -25,15 +25,15 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * This enum is used to indicate the health status/severity for both a service (i.e. multiple running instances)
+ * This enum is used to indicate the health status/severity for both a service (i.e., multiple running instances)
  * and the status of individual service instances.
  * <p>
  * If you need to compare {@link HealthStatus} instances by severity, use {@link HealthStatus#comparingSeverity()}
  * to obtain a {@link Comparator}.
  *
  * @implNote Even though the natural order of the constants is defined from lowest to highest severity, we don't
- * encourage relying on this and instead encourage using {@link HealthStatus#comparingSeverity()} to obtain a
- * Comparator. For example, even though no changes are anticipated, it is possible a new constant could be added
+ * encourage relying on this and instead encourage using {@link HealthStatus#comparingSeverity()} to get a
+ * Comparator. For example, even though no changes are expected, it is possible a new constant could be added
  * that falls between existing values, and could break existing assumptions.
  */
 @Slf4j
@@ -87,7 +87,7 @@ public enum HealthStatus {
     }
 
     /**
-     * Given a map containing the results of all the health checks in a service instance (e.g. the JSON that is
+     * Given a map containing the results of all the health checks in a service instance (e.g., the JSON that is
      * returned by calling the {@code healthcheck} endpoint of an instance), determine the appropriate health status
      * by checking both the {@code healthy} flag (true or false) as well as the {@code severity} if present.
      *
@@ -203,7 +203,7 @@ public enum HealthStatus {
      * Is the given (healthy, severity) combination valid?
      *
      * @param healthy  true if healthy, false otherwise
-     * @param severity the severity, if null the return value will always be true
+     * @param severity the severity; if null, the return value will always be true
      * @return true if the given (healthy, severity) combination is valid, otherwise false
      */
     public static boolean isValidCombination(boolean healthy, @Nullable HealthStatus severity) {
@@ -214,7 +214,7 @@ public enum HealthStatus {
      * Is the given (healthy, severity) combination invalid?
      *
      * @param healthy  true if healthy, false otherwise
-     * @param severity the severity, if null the return value will always be false (i.e. it's a valid combination)
+     * @param severity the severity; if null, the return value will always be false (i.e., it's a valid combination)
      * @return true if the given (healthy, severity) combination is NOT valid, otherwise false
      */
     public static boolean isInvalidCombination(boolean healthy, @Nullable HealthStatus severity) {
