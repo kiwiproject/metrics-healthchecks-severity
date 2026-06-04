@@ -602,4 +602,40 @@ class HealthStatusTest {
             assertThat(healthStatus.getValue()).isEqualTo(expectedStatus);
         }
     }
+
+    @Nested
+    class FromValue {
+
+        @ParameterizedTest
+        @EnumSource(HealthStatus.class)
+        void shouldReturnMatching_HealthStatus(HealthStatus healthStatus) {
+            assertThat(HealthStatus.fromValue(healthStatus.getValue()))
+                    .isEqualTo(healthStatus);
+        }
+
+        @ParameterizedTest
+        @ValueSource(ints = {-10, -1, 0, 6, 42, 100})
+        void shouldThrowIllegalArgument_WhenGivenNonMatchingValue(int value) {
+            assertThatIllegalArgumentException()
+                    .isThrownBy(() -> HealthStatus.fromValue(value))
+                    .withMessage(value + " is not a valid HealthStatus value");
+        }
+    }
+
+    @Nested
+    class FromValueIfPresent {
+
+        @ParameterizedTest
+        @EnumSource(HealthStatus.class)
+        void shouldReturnOptionalContainingMatching_HealthStatus(HealthStatus healthStatus) {
+            assertThat(HealthStatus.fromValueIfPresent(healthStatus.getValue()))
+                    .contains(healthStatus);
+        }
+
+        @ParameterizedTest
+        @ValueSource(ints = {-10, -1, 0, 6, 42, 100})
+        void shouldReturnEmptyOptional_WhenGivenNonMatchingValue(int value) {
+            assertThat(HealthStatus.fromValueIfPresent(value)).isEmpty();
+        }
+    }
 }

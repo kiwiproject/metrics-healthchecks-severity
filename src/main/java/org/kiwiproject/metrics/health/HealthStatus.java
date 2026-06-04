@@ -16,6 +16,7 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.jspecify.annotations.Nullable;
 import org.kiwiproject.base.KiwiEnums;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -239,6 +240,31 @@ public enum HealthStatus {
      */
     public static HealthStatus from(Boolean value) {
         return BooleanUtils.toBoolean(value) ? OK : WARN;
+    }
+
+    /**
+     * Return the {@code HealthStatus} whose numeric value matches the input value.
+     * 
+     * @param value the numeric health status value to match
+     * @return the matching {@code HealthStatus}
+     * @throws IllegalArgumentException if there is no HealthStatus whose value matches
+     */
+    public static HealthStatus fromValue(int value) {
+        return fromValueIfPresent(value)
+                .orElseThrow(() -> new IllegalArgumentException(value + " is not a valid HealthStatus value"));
+    }
+
+    /**
+     * Return an Optional containing the {@code HealthStatus} whose numeric value matches the input value,
+     * otherwise an empty Optional.
+     * 
+     * @param value the numeric health status value to match
+     * @return an Optional containing the matching {@code HealthStatus}, or an empty Optional if no match exists
+     */
+    public static Optional<HealthStatus> fromValueIfPresent(int value) {
+        return Arrays.stream(values())
+                .filter(status -> status.getValue() == value)
+                .findFirst();
     }
 
     /**
