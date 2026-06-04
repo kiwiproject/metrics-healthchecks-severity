@@ -10,7 +10,6 @@ import static org.kiwiproject.collect.KiwiMaps.isNullOrEmpty;
 import static org.kiwiproject.metrics.health.HealthCheckResults.SEVERITY_DETAIL;
 
 import com.google.common.collect.Iterables;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
@@ -77,9 +76,13 @@ public enum HealthStatus {
     FATAL(5);
 
     /**
-     * Internal value used to compare severity (we do NOT want to rely on the ordinal of the enum constants).
+     * Value representing the severity level. Useful for interop - for example, a service that serializes
+     * health status to JSON can include both the name and this value, allowing non-Java clients to compare
+     * severity in a language-agnostic manner.
+     * <p>
+     * These values are stable across versions and safe to persist or serialize.
      */
-    @Getter(AccessLevel.PACKAGE)
+    @Getter
     private final int value;
 
     HealthStatus(int value) {

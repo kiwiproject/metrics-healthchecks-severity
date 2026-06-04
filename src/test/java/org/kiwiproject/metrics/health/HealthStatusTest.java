@@ -584,4 +584,22 @@ class HealthStatusTest {
 
     record WorkflowError(String message, HealthStatus healthStatus) {
     }
+
+    @Nested
+    class GetValue {
+
+        @ParameterizedTest
+        @EnumSource(HealthStatus.class)
+        void shouldReturnTheExpectedValues(HealthStatus healthStatus) {
+            var expectedStatus = switch (healthStatus) {
+                case OK -> 1;
+                case INFO -> 2;
+                case WARN -> 3;
+                case CRITICAL -> 4;
+                case FATAL -> 5;
+            };
+
+            assertThat(healthStatus.getValue()).isEqualTo(expectedStatus);
+        }
+    }
 }
